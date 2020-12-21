@@ -2,5 +2,10 @@
 src  = "Caddyfile.tmpl"
 dest = "/etc/caddy/Caddyfile"
 keys = [
-    "/caddy/fqdn"
+    "/caddy/fqdn",
+    "/caddy/auth/url",
+    "/caddy/client/id",
+    "/caddy/client/secret",
+    "/caddy/token/name",
+    "/caddy/token/secret"
 ]

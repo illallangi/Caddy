@@ -1,5 +1,47 @@
-:80
-
-root * /usr/share/caddy
-
-file_server
+{{getv "/caddy/fqdn"}} {
+  tls /etc/caddy/tls.crt /etc/caddy/tls.key
+  route /auth* {
+    auth_portal {
+      path /auth
+      backends {
+        production {
+          method oauth2
+          realm production
+          provider generic
+          client_id {{getv "/caddy/client/id"}}
+          client_secret {{getv "/caddy/client/secret"}}
+          scopes openid email profile
+          base_auth_url "{{getv "/caddy/auth/url"}}"
+          metadata_url "{{getv "/caddy/auth/url"}}.well-known/openid-configuration"
+        }
+      }
+      jwt {
+        token_name {{getv "/caddy/token/name" "access_token"}}
+        token_secret {{getv "/caddy/token/secret"}}
+      }
+    }
+  }
+  route /.well-known/teapot {
+    teapot
+  }
+  route /.well-known/health {
+    respond "OK" 200
+  }
+    
+  route {
+    jwt {
+      primary yes
+      trusted_tokens {
+        static_secret {
+          token_name {{getv "/caddy/token/name" "access_token"}}
+          token_secret {{getv "/caddy/token/secret"}}
+        }
+      }
+      auth_url /auth/oauth2/production
+    }
+    respond * "Generic SSO" 200
+  }
+}
+:5800 {
+  respond /.well-known/health 200
+}

@@ -1,0 +1,6 @@
+[template]
+src  = "tls.json.tmpl"
+dest = "/etc/caddy/tls.json"
+keys = [
+    "/caddy/fqdn"
+]
