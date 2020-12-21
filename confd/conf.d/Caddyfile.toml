@@ -7,5 +7,6 @@ keys = [
     "/caddy/client/id",
     "/caddy/client/secret",
     "/caddy/token/name",
-    "/caddy/token/secret"
+    "/caddy/token/secret",
+    "/proxy"
 ]

@@ -27,8 +27,10 @@
   route /.well-known/health {
     respond "OK" 200
   }
-    
-  route {
+{{range $idx, $proxy := ls "/proxy"}}
+  # {{$idx}}: PROXY_{{ toUpper $proxy }}_*
+  route {{getv (print "/proxy/" $proxy "/location") "/"}}* {
+{{if eq $idx 0}}
     jwt {
       primary yes
       trusted_tokens {
@@ -39,8 +41,16 @@
       }
       auth_url /auth/oauth2/production
     }
+{{ else }}
+    jwt
+{{ end }}
+{{if ls (print "/proxy/" $proxy "/port")}}
+    reverse_proxy localhost:8080 {{getv (print "/proxy/" $proxy "/protocol") "http"}}://{{getv (print "/proxy/" $proxy "/host") "localhost"}}:{{getv (print "/proxy/" $proxy "/port")}}
+{{else}}
     respond * "Generic SSO" 200
+{{end}}
   }
+{{end}}
 }
 :5800 {
   respond /.well-known/health 200
