@@ -45,7 +45,7 @@
     jwt
 {{ end }}
 {{if ls (print "/proxy/" $proxy "/port")}}
-    reverse_proxy localhost:8080 {{getv (print "/proxy/" $proxy "/protocol") "http"}}://{{getv (print "/proxy/" $proxy "/host") "localhost"}}:{{getv (print "/proxy/" $proxy "/port")}}
+    reverse_proxy {{getv (print "/proxy/" $proxy "/protocol") "http"}}://{{getv (print "/proxy/" $proxy "/host") "localhost"}}:{{getv (print "/proxy/" $proxy "/port")}}
 {{else}}
     respond * "Generic SSO" 200
 {{end}}
