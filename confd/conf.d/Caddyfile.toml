@@ -1,0 +1,6 @@
+[template]
+src  = "Caddyfile.tmpl"
+dest = "/etc/caddy/Caddyfile"
+keys = [
+    "/caddy/fqdn"
+]
