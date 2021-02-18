@@ -1,4 +1,4 @@
-FROM caddy:2.2.3-builder AS caddy
+FROM caddy:2.2.1-builder AS caddy
 
 RUN xcaddy build \
     --with github.com/greenpau/caddy-auth-portal \
@@ -6,7 +6,7 @@ RUN xcaddy build \
     --with github.com/hairyhenderson/caddy-teapot-module@v0.0.3-0
 
 
-FROM caddy:2.2.3
+FROM caddy:2.2.1
 
 MAINTAINER Andrew Cole <andrew.cole@illallangi.com>
 
