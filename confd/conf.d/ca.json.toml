@@ -1,6 +1,0 @@
-[template]
-src  = "ca.json.tmpl"
-dest = "/etc/caddy/ca.json"
-keys = [
-    "/caddy/fqdn"
-]

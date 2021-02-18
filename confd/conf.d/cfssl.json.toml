@@ -1,6 +1,0 @@
-[template]
-src  = "cfssl.json.tmpl"
-dest = "/etc/caddy/cfssl.json"
-keys = [
-    "/caddy/fqdn"
-]
